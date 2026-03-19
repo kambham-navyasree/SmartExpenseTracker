@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Expense Tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>💰 Smart Expense Tracker</h1>
+
+    <!-- DASHBOARD SUMMARY CARDS -->
+    <div class="dashboard">
+        <div class="card">
+            <h3>Total Expenses</h3>
+            <p>₹ <span id="totalCard">0</span></p>
+        </div>
+
+        <div class="card">
+            <h3>Total Entries</h3>
+            <p><span id="countCard">0</span></p>
+        </div>
+
+        <div class="card">
+            <h3>Highest Expense</h3>
+            <p>₹ <span id="maxCard">0</span></p>
+        </div>
+    </div>
+
+    <!-- FORM SECTION -->
+    <div class="form-section">
+        <input type="text" id="title" placeholder="Expense Title">
+        <input type="number" id="amount" placeholder="Amount">
+        
+        <select id="category">
+            <option value="">Select Category</option>
+            <option value="Food">Food</option>
+            <option value="Transport">Transport</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Bills">Bills</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <button onclick="addExpense()">Add</button>
+    </div>
+
+    <!-- TOTAL SECTION -->
+    <div class="total">
+        Total: ₹ <span id="total">0</span>
+    </div>
+
+    <!-- EXPENSE LIST -->
+    <div class="expense-list" id="expense-list"></div>
+
+    <!-- CHART SECTION -->
+    <div class="chart-container">
+        <h2>Category Analysis</h2>
+        <canvas id="expenseChart"></canvas>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html> 
