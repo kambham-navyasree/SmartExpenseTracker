@@ -10,11 +10,17 @@ window.onload = function () {
 
 // FETCH EXPENSES
 async function fetchExpenses() {
-    const response = await fetch(`${API_URL}/get-expenses`);
-    expenses = await response.json();
-    displayExpenses();
-    updateTotal();
-    updateChart();
+    try {
+        const response = await fetch(`${API_URL}/get-expenses`);
+        const data = await response.json();
+
+        expenses = data;
+        displayExpenses();
+        updateTotal();
+        updateChart();
+    } catch (error) {
+        console.error("Error fetching expenses:", error);
+    }
 }
 
 // ADD EXPENSE
@@ -28,27 +34,39 @@ async function addExpense() {
         return;
     }
 
-    await fetch(`${API_URL}/add-expense`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ title, amount, category })
-    });
+    try {
+        const response = await fetch(`${API_URL}/add-expense`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ title, amount, category })
+        });
 
-    document.getElementById("title").value = "";
-    document.getElementById("amount").value = "";
+        const data = await response.json();
+        console.log("Added:", data);
 
-    fetchExpenses();
+        // Clear inputs
+        document.getElementById("title").value = "";
+        document.getElementById("amount").value = "";
+
+        fetchExpenses();
+    } catch (error) {
+        console.error("Error adding expense:", error);
+    }
 }
 
-// DELETE EXPENSE (NOW USING ID)
+// DELETE EXPENSE
 async function deleteExpense(id) {
-    await fetch(`${API_URL}/delete-expense/${id}`, {
-        method: "DELETE"
-    });
+    try {
+        await fetch(`${API_URL}/delete-expense/${id}`, {
+            method: "DELETE"
+        });
 
-    fetchExpenses();
+        fetchExpenses();
+    } catch (error) {
+        console.error("Error deleting expense:", error);
+    }
 }
 
 // DISPLAY EXPENSES
